@@ -5,7 +5,9 @@ plugins {
 android {
     namespace 'com.rksolution.urdusikhe'
     compileSdk 35
-
+    buildFeatures {
+        buildConfig true
+    }
     defaultConfig {
         applicationId 'com.rksolution.urdusikhe'
         minSdk 23
