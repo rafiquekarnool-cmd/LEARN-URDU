@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#24105f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>URDU SIKHE — بچوں کی آسان تعلیم</title>
+
+<style>
+@font-face{
+  font-family:"JameelKasheeda";
+  src:url("fonts/Jameel-Noori-Nastaleeq-Kasheeda.ttf") format("truetype");
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+
+:root{
+  --purple:#5b21b6;
+  --purple2:#7c3aed;
+  --dark:#170b3b;
+  --card:#ffffff;
+  --text:#211638;
+  --muted:#665b78;
+  --green:#10b981;
+  --blue:#0ea5e9;
+  --orange:#f59e0b;
+  --pink:#ec4899;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;min-height:100%;background:#eee8ff}
+body{
+  font-family:"JameelKasheeda",serif;
+  direction:rtl;
+  color:var(--text);
+  overflow-x:hidden;
+}
+button,a{font-family:inherit}
+button{border:0;cursor:pointer;touch-action:manipulation}
+.app{
+  width:100%;
+  max-width:520px;
+  min-height:100vh;
+  margin:auto;
+  background:linear-gradient(#32117a 0,#5b21b6 170px,#f4efff 170px,#f4efff 100%);
+  padding:10px 10px calc(20px + env(safe-area-inset-bottom));
+}
+.header{
+  color:#fff;
+  text-align:center;
+  padding:10px 8px 14px;
+}
+.logo{
+  width:74px;height:74px;margin:auto;display:block;
+  border-radius:50%;background:#fff;
+  box-shadow:0 8px 18px #12052d55;
+}
+.brand{
+  font-family:Arial,sans-serif;
+  font-weight:900;
+  font-size:21px;
+  letter-spacing:1px;
+  margin-top:6px;
+}
+.tag{
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  opacity:.82;
+  margin-top:2px;
+}
+.screen{display:none}
+.screen.active{display:block}
+.welcome{text-align:center;color:#fff;padding:5px 4px 15px}
+.welcome h1{font-size:27px;margin:0 0 2px;line-height:1.6}
+.welcome p{font-size:16px;margin:0;opacity:.92}
+.dashboard{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{
+  min-height:145px;
+  border-radius:22px;
+  color:#fff;
+  padding:12px 8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 8px 20px #2b125955;
+  border:1px solid #ffffff35;
+}
+.card:active{transform:scale(.97)}
+.cardIcon{font-family:Arial,sans-serif;font-size:42px;line-height:1;margin-bottom:7px}
+.cardTitle{font-size:20px;font-weight:700;line-height:1.45}
+.cardSub{font-family:Arial,sans-serif;font-size:10px;opacity:.85;margin-top:3px}
+.purple{background:linear-gradient(145deg,#8b5cf6,#4c1d95)}
+.blue{background:linear-gradient(145deg,#22d3ee,#075985)}
+.orange{background:linear-gradient(145deg,#fbbf24,#c2410c)}
+.pink{background:linear-gradient(145deg,#f472b6,#be185d)}
+.green{background:linear-gradient(145deg,#34d399,#047857)}
+.navy{background:linear-gradient(145deg,#60a5fa,#1e3a8a)}
+.footer{text-align:center;color:#776c8e;font-family:Arial,sans-serif;font-size:9px;padding:15px 0}
+
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:8px;margin:4px 0 10px;
+}
+.back,.score{
+  background:#fff;color:#3b176f;border-radius:14px;
+  padding:8px 14px;box-shadow:0 4px 12px #30135a20;
+  font-size:16px;line-height:1.4;
+}
+.score{color:#a16207;font-family:Arial,sans-serif;font-size:14px;font-weight:bold}
+.game{
+  background:#fff;border-radius:24px;padding:14px 11px;
+  box-shadow:0 8px 24px #3814671c;
+  border:1px solid #e6dcff;
+  text-align:center;
+}
+.title{font-size:28px;line-height:1.55;color:#43148a}
+.subtitle{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:8px}
+.bigLetter{
+  width:145px;height:145px;margin:10px auto;
+  border-radius:30px;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 25%,#b794ff,#4c1d95 72%);
+  color:#fff;font-size:88px;line-height:1;
+  box-shadow:0 12px 24px #4c1d9560;
+}
+.soundBtn,.nextBtn,.toolBtn{
+  border-radius:15px;padding:10px 17px;color:#fff;
+  font-size:16px;line-height:1.5;
+}
+.soundBtn{background:linear-gradient(135deg,#0ea5e9,#7c3aed)}
+.nextBtn{background:linear-gradient(135deg,#10b981,#047857)}
+.toolBtn{background:#46316f;font-size:14px}
+.letters{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:13px
+}
+.letterBtn{
+  min-height:58px;border-radius:14px;background:#efe9ff;
+  color:#39106f;border:1px solid #ded0ff;font-size:28px;
+}
+.letterBtn.active{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff}
+.drawBox{margin-top:13px;background:#fff;border:2px solid #ddd1ff;padding:5px;border-radius:18px}
+canvas{display:block;width:100%;height:210px;background:#fbfaff;border-radius:13px;touch-action:none}
+.drawTools{display:flex;justify-content:center;gap:7px;margin-top:8px;flex-wrap:wrap}
+.message{min-height:30px;margin:8px 0;font-size:14px;line-height:1.7;color:#4a3a61}
+.picture{
+  width:175px;height:135px;margin:12px auto;display:flex;align-items:center;justify-content:center;
+  border-radius:22px;background:#fff7ed;font-family:Arial,sans-serif;font-size:70px;
+  box-shadow:inset 0 0 0 2px #fde2bd;
+}
+.slots,.chars{
+  display:flex;justify-content:center;gap:7px;flex-wrap:wrap;
+  direction:rtl;margin:11px 0;
+}
+.slot{
+  width:48px;height:52px;border:2px dashed #b6a6d6;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:27px;
+}
+.charBtn{
+  width:50px;height:53px;border-radius:14px;background:#6842ba;color:#fff;font-size:27px;
+}
+.rangeBar,.tableBar{
+  display:flex;gap:7px;overflow-x:auto;padding:5px 0 10px;
+  scrollbar-width:none;
+}
+.rangeBar::-webkit-scrollbar,.tableBar::-webkit-scrollbar{display:none}
+.pill{
+  flex:0 0 auto;padding:8px 12px;border-radius:12px;
+  background:#ece7f8;color:#4b2b73;font-size:14px;
+}
+.pill.active{background:#06b6d4;color:#fff}
+.bigNumber{
+  width:150px;height:110px;margin:10px auto;border-radius:25px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#fbbf24,#c2410c);
+  color:#fff;font-family:Arial,sans-serif;font-size:58px;font-weight:bold;
+}
+.numberGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.numberBtn{
+  min-height:49px;border-radius:12px;background:#eee9fa;
+  color:#3c1b67;font-family:Arial,sans-serif;font-size:16px;font-weight:bold
+}
+.tableList{display:flex;flex-direction:column;gap:7px}
+.tableLine{
+  width:100%;background:#f0ebfb;color:#35175f;padding:11px;
+  border-radius:13px;font-family:Arial,sans-serif;font-size:18px;font-weight:bold;
+}
+.aboutBox{text-align:center;padding:15px 11px}
+.aboutPhoto{
+  width:150px;height:150px;object-fit:cover;object-position:center top;
+  border-radius:50%;display:block;margin:3px auto 12px;
+  border:5px solid #fff;outline:3px solid #6d28d9;
+  box-shadow:0 10px 25px #37145b30;
+}
+.aboutTitle{font-size:31px;color:#4c1d95;margin:3px 0 8px}
+.aboutText{font-size:18px;line-height:2.05;color:#4a3b5e;margin:7px 0 12px}
+.infoCard{
+  background:#faf8ff;border:1px solid #e4d8ff;border-radius:16px;
+  padding:10px;margin-top:9px;text-align:right
+}
+.infoLabel{color:#5b21b6;font-size:15px;font-weight:bold}
+.infoValue{font-family:Arial,sans-serif;direction:ltr;text-align:left;font-size:14px;margin-top:3px;word-break:break-word}
+.infoValue a{color:#1d4ed8;text-decoration:none}
+.mission{
+  background:linear-gradient(135deg,#f3e8ff,#ecfeff);
+  border-radius:16px;padding:11px;margin-top:11px;
+  color:#4c1d95;font-size:17px;line-height:2
+}
+.helpList{text-align:right;padding:0 8px}
+.helpItem{background:#faf8ff;border:1px solid #e6dcff;border-radius:15px;padding:9px 11px;margin:8px 0;font-size:17px;line-height:1.9}
+.homeBtn{margin-top:9px}
+@media(max-width:370px){
+  .app{padding-left:7px;padding-right:7px}
+  .card{min-height:132px}
+  .cardTitle{font-size:18px}
+  .bigLetter{width:130px;height:130px;font-size:80px}
+  .numberGrid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header class="header">
+  <svg class="logo" viewBox="0 0 200 200" aria-label="RK Solution">
+    <circle cx="100" cy="100" r="96" fill="#fff" stroke="#7c3aed" stroke-width="5"/>
+    <circle cx="100" cy="100" r="84" fill="none" stroke="#c4b5fd" stroke-width="2"/>
+    <text x="100" y="92" text-anchor="middle" font-family="Arial" font-size="54" font-weight="900" fill="#3b176f">RK</text>
+    <text x="100" y="121" text-anchor="middle" font-family="Arial" font-size="21" fill="#5b21b6">Solution</text>
+    <text x="100" y="145" text-anchor="middle" font-family="Arial" font-size="8" font-weight="bold" fill="#7c3aed">LEARNING • CREATIVITY</text>
+  </svg>
+  <div class="brand">URDU SIKHE</div>
+  <div class="tag">بچوں کی آسان تعلیم</div>
+</header>
+
+<section id="home" class="screen active">
+  <div class="welcome">
+    <h1>🎓 بچوں کی آسان تعلیم</h1>
+    <p>کھیلیں • سنیں • لکھیں • سیکھیں</p>
+  </div>
+
+  <div class="dashboard">
+    <button class="card purple" onclick="openLetters()">
+      <div class="cardIcon">ا</div><div class="cardTitle">حروفِ تہجی</div><div class="cardSub">حرف سنیں اور لکھیں</div>
+    </button>
+    <button class="card blue" onclick="openWords()">
+      <div class="cardIcon">🖼️</div><div class="cardTitle">لفظ بنائیں</div><div class="cardSub">تصویر دیکھ کر لفظ بنائیں</div>
+    </button>
+    <button class="card orange" onclick="openCounting()">
+      <div class="cardIcon">🔢</div><div class="cardTitle">گنتی</div><div class="cardSub">۱ سے ۱۰۰ تک</div>
+    </button>
+    <button class="card pink" onclick="openTables()">
+      <div class="cardIcon">✖️</div><div class="cardTitle">پہاڑے</div><div class="cardSub">۲ سے ۱۰ تک</div>
+    </button>
+    <button class="card green" onclick="openAbout()">
+      <div class="cardIcon">👤</div><div class="cardTitle">ہمارے بارے میں</div><div class="cardSub">ایپ تیار کرنے والے</div>
+    </button>
+    <button class="card navy" onclick="openHelp()">
+      <div class="cardIcon">❓</div><div class="cardTitle">مدد</div><div class="cardSub">ایپ استعمال کرنے کا طریقہ</div>
+    </button>
+  </div>
+  <div class="footer">RK SOLUTION • بچوں کا تعلیمی کھیل</div>
+</section>
+
+<section id="letters" class="screen">
+  <div class="topbar"><button class="back" onclick="goHome()">🏠 گھر</button><div class="score">⭐ <span class="stars">0</span></div></div>
+  <div class="game">
+    <div class="title">حروفِ تہجی</div>
+    <div class="subtitle">حرف کو چھوئیں، آواز سنیں اور نیچے انگلی سے لکھیں</div>
+    <div id="bigLetter" class="bigLetter">ا</div>
+    <button class="soundBtn" onclick="sayCurrentLetter()">🔊 آواز سنیں</button>
+    <div id="letterList" class="letters"></div>
+    <div class="drawBox"><canvas id="canvas"></canvas></div>
+    <div class="drawTools">
+      <button class="toolBtn" onclick="clearCanvas()">🗑 صاف کریں</button>
+      <button class="toolBtn" onclick="sayCurrentLetter()">🔊 دوبارہ سنیں</button>
+    </div>
+    <div id="letterMsg" class="message">کسی حرف کو چھوئیں</div>
+  </div>
+</section>
+
+<section id="words" class="screen">
+  <div class="topbar"><button class="back" onclick="goHome()">🏠 گھر</button><div class="score">⭐ <span class="stars">0</span></div></div>
+  <div class="game">
+    <div class="title">لفظ بنائیں</div>
+    <div class="subtitle">تصویر دیکھیں اور حروف کو صحیح ترتیب سے منتخب کریں</div>
+    <div id="pic" class="picture">🍎</div>
+    <div id="slots" class="slots"></div>
+    <div id="chars" class="chars"></div>
+    <div id="wordMsg" class="message"></div>
+    <button class="nextBtn" onclick="nextWord()">اگلی تصویر ➜</button>
+  </div>
+</section>
+
+<section id="counting" class="screen">
+  <div class="topbar"><button class="back" onclick="goHome()">🏠 گھر</button><div class="score">⭐ <span class="stars">0</span></div></div>
+  <div class="game">
+    <div class="title">گنتی</div>
+    <div class="subtitle">۱ سے ۱۰۰ — نمبر کو چھوئیں اور اردو آواز سنیں</div>
+    <div id="groups" class="rangeBar"></div>
+    <div id="bigNum" class="bigNumber">۱</div>
+    <button class="soundBtn" onclick="sayNumber(currentNumber)">🔊 نمبر کی آواز</button>
+    <div id="nums" class="numberGrid" style="margin-top:13px"></div>
+    <div id="countMsg" class="message">نمبر پر چھوئیں</div>
+  </div>
+</section>
+
+<section id="tables" class="screen">
+  <div class="topbar"><button class="back" onclick="goHome()">🏠 گھر</button><div class="score">⭐ <span class="stars">0</span></div></div>
+  <div class="game">
+    <div class="title">پہاڑے</div>
+    <div class="subtitle">۲ سے ۱۰ تک — کسی بھی سوال کو چھو کر آواز سنیں</div>
+    <div id="tableBtns" class="tableBar"></div>
+    <div id="tableList" class="tableList"></div>
+  </div>
+</section>
+
+<section id="about" class="screen">
+  <div class="topbar"><button class="back" onclick="goHome()">🏠 گھر</button><div class="score">⭐ <span class="stars">0</span></div></div>
+  <div class="game aboutBox">
+    <img class="aboutPhoto" src="assets/about-photo.jpeg" alt="ایپ تیار کرنے والے کی تصویر">
+    <div class="aboutTitle">ہمارے بارے میں</div>
+    <div class="aboutText">
+      یہ بچوں کی آسان تعلیم کے لیے تیار کیا گیا تعلیمی کھیل ہے۔
+      اس میں حروفِ تہجی، الفاظ، گنتی اور پہاڑے سیکھنے کے ساتھ
+      آواز سننے اور لکھنے کی مشق بھی شامل ہے۔
+    </div>
+
+    <div class="infoCard">
+      <div class="infoLabel">👤 تیار کنندہ</div>
+      <div class="infoValue">رفیق احمد این۔ کرنول</div>
+    </div>
+
+    <div class="infoCard">
+      <div class="infoLabel">🏢 ادارہ</div>
+      <div class="infoValue">RK SOLUTION</div>
+    </div>
+
+    <div class="infoCard">
+      <div class="infoLabel">📧 ای میل</div>
+      <div class="infoValue"><a href="mailto:rafiquekarnool@gmail.com">rafiquekarnool@gmail.com</a></div>
+    </div>
+
+    <div class="infoCard">
+      <div class="infoLabel">📱 واٹس ایپ</div>
+      <div class="infoValue"><a href="https://wa.me/919765588824" target="_blank" rel="noopener">97655 88824</a></div>
+    </div>
+
+    <div class="mission">
+      ⭐ ہمارا مقصد بچوں کو آسان، دلچسپ اور معیاری تعلیم فراہم کرنا
+      اور انہیں روشن مستقبل کی طرف لے جانا ہے۔
+    </div>
+  </div>
+</section>
+
+<section id="help" class="screen">
+  <div class="topbar"><button class="back" onclick="goHome()">🏠 گھر</button><div class="score">⭐ <span class="stars">0</span></div></div>
+  <div class="game aboutBox">
+    <div class="title">مدد</div>
+    <div class="helpList">
+      <div class="helpItem">🔤 <b>حروفِ تہجی:</b> کوئی حرف منتخب کریں، آواز سنیں اور نیچے انگلی سے لکھنے کی مشق کریں۔</div>
+      <div class="helpItem">🖼️ <b>لفظ بنائیں:</b> تصویر دیکھیں اور حروف کو صحیح ترتیب سے منتخب کریں۔</div>
+      <div class="helpItem">🔢 <b>گنتی:</b> ۱ سے ۱۰۰ تک کوئی بھی نمبر منتخب کرکے اس کی اردو آواز سنیں۔</div>
+      <div class="helpItem">✖️ <b>پہاڑے:</b> ۲ سے ۱۰ تک پہاڑا منتخب کریں اور کسی بھی سوال کو چھو کر آواز سنیں۔</div>
+      <div class="helpItem">⭐ <b>اسکور:</b> صحیح سرگرمی مکمل کرنے پر ستارے حاصل کریں۔</div>
+    </div>
+    <button class="nextBtn homeBtn" onclick="goHome()">🏠 گھر واپس جائیں</button>
+  </div>
+</section>
+
+</div>
+
+<script>
+const letters = ["ا","ب","پ","ت","ٹ","ث","ج","چ","ح","خ","د","ڈ","ذ","ر","ڑ","ز","ژ","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ک","گ","ل","م","ن","و","ہ","ء","ی"];
+const letterSound = {
+  "ا":"الف","ب":"بے","پ":"پے","ت":"تے","ٹ":"ٹے","ث":"ثے","ج":"جیم","چ":"چے","ح":"حے","خ":"خے",
+  "د":"دال","ڈ":"ڈال","ذ":"ذال","ر":"رے","ڑ":"ڑے","ز":"زے","ژ":"ژے","س":"سین","ش":"شین",
+  "ص":"صاد","ض":"ضاد","ط":"طوئے","ظ":"ظوئے","ع":"عین","غ":"غین","ف":"فے","ق":"قاف",
+  "ک":"کاف","گ":"گاف","ل":"لام","م":"میم","ن":"نون","و":"واو","ہ":"ہے","ء":"ہمزہ","ی":"یے"
+};
+
+const urduNumbers = [
+ "صفر","ایک","دو","تین","چار","پانچ","چھ","سات","آٹھ","نو","دس","گیارہ","بارہ","تیرہ","چودہ","پندرہ",
+ "سولہ","سترہ","اٹھارہ","انیس","بیس","اکیس","بائیس","تئیس","چوبیس","پچیس","چھبیس","ستائیس","اٹھائیس",
+ "انتیس","تیس","اکتیس","بتیس","تینتیس","چونتیس","پینتیس","چھتیس","سینتیس","اڑتیس","انتالیس","چالیس",
+ "اکتالیس","بیالیس","تینتالیس","چوالیس","پینتالیس","چھیالیس","سینتالیس","اڑتالیس","انچاس","پچاس",
+ "اکیاون","باون","ترپن","چَوّن","پچپن","چھپن","ستاون","اٹھاون","انسٹھ","ساٹھ","اکسٹھ","باسٹھ",
+ "تریسٹھ","چونسٹھ","پینسٹھ","چھیاسٹھ","سڑسٹھ","اڑسٹھ","انہتر","ستر","اکہتر","بہتر","تہتر","چوہتر",
+ "پچہتر","چھہتر","ستتر","اٹھتر","اناسی","اسی","اکیاسی","بیاسی","تراسی","چوراسی","پچاسی","چھیاسی",
+ "ستاسی","اٹھاسی","نواسی","نوے","اکیانوے","بانوے","ترانوے","چورانوے","پچانوے","چھیانوے","ستانوے",
+ "اٹھانوے","ننانوے","سو"
+];
+
+const urduDigits = n => String(n).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+
+const words = [
+  ["🍎",["س","ی","ب"]],["🥭",["آ","م"]],["🐱",["ب","ل","ی"]],["🐟",["م","چ","ھ","ل","ی"]],
+  ["🦋",["ت","ت","ل","ی"]],["🐘",["ہ","ا","ت","ھ","ی"]],["🏠",["گ","ھ","ر"]],["🌹",["گ","ل"]]
+];
+
+let stars = 0, letterIndex = 0, currentNumber = 1, currentGroup = 1, currentTable = 2, wordIndex = 0, chosen = [];
+
+function qs(id){ return document.getElementById(id); }
+
+function hideScreens(){
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+}
+function goHome(){
+  hideScreens();
+  qs("home").classList.add("active");
+  if("speechSynthesis" in window) window.speechSynthesis.cancel();
+}
+function openAbout(){ hideScreens(); qs("about").classList.add("active"); }
+function openHelp(){ hideScreens(); qs("help").classList.add("active"); }
+function addStar(){
+  stars++;
+  document.querySelectorAll(".stars").forEach(x => x.textContent = stars);
+}
+
+function speak(text){
+  if(!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ur-PK";
+  u.rate = 0.72;
+  u.pitch = 1;
+  window.speechSynthesis.speak(u);
+}
+
+/* حروف */
+function openLetters(){
+  hideScreens();
+  qs("letters").classList.add("active");
+  buildLetters();
+  selectLetter(0);
+  setTimeout(resizeCanvas,100);
+}
+function buildLetters(){
+  const box = qs("letterList");
+  box.innerHTML = "";
+  letters.forEach((letter,i)=>{
+    const b = document.createElement("button");
+    b.className = "letterBtn";
+    b.textContent = letter;
+    b.setAttribute("aria-label", letterSound[letter]);
+    b.onclick = () => selectLetter(i);
+    box.appendChild(b);
+  });
+}
+function selectLetter(i){
+  letterIndex = i;
+  qs("bigLetter").textContent = letters[i];
+  document.querySelectorAll(".letterBtn").forEach((b,j)=>b.classList.toggle("active",j===i));
+  qs("letterMsg").textContent = "🔊 " + letterSound[letters[i]];
+  speak(letterSound[letters[i]]);
+  clearCanvas();
+}
+function sayCurrentLetter(){ speak(letterSound[letters[letterIndex]]); }
+
+/* لکھنے کی مشق */
+const canvas = qs("canvas");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+
+function resizeCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  canvas.width = Math.floor(rect.width*dpr);
+  canvas.height = Math.floor(rect.height*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.lineWidth = 7;
+  guideCanvas();
+}
+function guideCanvas(){
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const w = canvas.width/dpr, h = canvas.height/dpr;
+  ctx.clearRect(0,0,w,h);
+  ctx.save();
+  ctx.direction = "rtl";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.font = '145px "JameelKasheeda",serif';
+  ctx.fillStyle = "#5b21b61c";
+  ctx.fillText(letters[letterIndex],w/2,h/2+5);
+  ctx.restore();
+}
+function pointFromEvent(e){
+  const r = canvas.getBoundingClientRect();
+  return {x:e.clientX-r.left,y:e.clientY-r.top};
+}
+canvas.addEventListener("pointerdown",e=>{
+  drawing = true;
+  canvas.setPointerCapture?.(e.pointerId);
+  const p = pointFromEvent(e);
+  ctx.beginPath();
+  ctx.moveTo(p.x,p.y);
+});
+canvas.addEventListener("pointermove",e=>{
+  if(!drawing) return;
+  const p = pointFromEvent(e);
+  ctx.strokeStyle = "#6d28d9";
+  ctx.lineTo(p.x,p.y);
+  ctx.stroke();
+});
+canvas.addEventListener("pointerup",()=>drawing=false);
+canvas.addEventListener("pointercancel",()=>drawing=false);
+function clearCanvas(){ if(canvas.width) guideCanvas(); }
+
+/* لفظ */
+function openWords(){
+  hideScreens();
+  qs("words").classList.add("active");
+  wordIndex = 0;
+  loadWord();
+}
+function loadWord(){
+  chosen = [];
+  const data = words[wordIndex];
+  qs("pic").textContent = data[0];
+  qs("wordMsg").textContent = "";
+  renderSlots();
+  const chars = [...data[1]].sort(()=>Math.random()-0.5);
+  const box = qs("chars");
+  box.innerHTML = "";
+  chars.forEach(c=>{
+    const b = document.createElement("button");
+    b.className = "charBtn";
+    b.textContent = c;
+    b.onclick = ()=>{
+      if(chosen.length >= data[1].length) return;
+      chosen.push(c);
+      renderSlots();
+      speak(letterSound[c] || c);
+      checkWord();
+    };
+    box.appendChild(b);
+  });
+}
+function renderSlots(){
+  const box = qs("slots");
+  box.innerHTML = "";
+  words[wordIndex][1].forEach((_,i)=>{
+    const s = document.createElement("div");
+    s.className = "slot";
+    s.textContent = chosen[i] || "";
+    box.appendChild(s);
+  });
+}
+function checkWord(){
+  const correctWord = words[wordIndex][1];
+  const correct = chosen.every((x,i)=>x===correctWord[i]);
+  if(chosen.length===correctWord.length){
+    if(correct){
+      qs("wordMsg").textContent = "🎉 شاباش! صحیح لفظ";
+      addStar();
+      speak("شاباش، صحیح لفظ");
+    }else{
+      qs("wordMsg").textContent = "❌ دوبارہ کوشش کریں";
+      setTimeout(()=>{ chosen=[]; renderSlots(); },700);
+    }
+  }
+}
+function nextWord(){ wordIndex=(wordIndex+1)%words.length; loadWord(); }
+
+/* گنتی */
+function openCounting(){
+  hideScreens();
+  qs("counting").classList.add("active");
+  buildGroups();
+  selectGroup(1);
+}
+function buildGroups(){
+  const box = qs("groups");
+  box.innerHTML = "";
+  for(let start=1;start<=91;start+=10){
+    const end=Math.min(start+9,100);
+    const b=document.createElement("button");
+    b.className="pill";
+    b.textContent=urduDigits(start)+" - "+urduDigits(end);
+    b.onclick=()=>selectGroup(start);
+    box.appendChild(b);
+  }
+}
+function selectGroup(start){
+  currentGroup=start;
+  document.querySelectorAll("#groups .pill").forEach((b,j)=>b.classList.toggle("active",j===Math.floor((start-1)/10)));
+  currentNumber=start;
+  renderNumbers();
+}
+function renderNumbers(){
+  const box=qs("nums");
+  box.innerHTML="";
+  for(let n=currentGroup;n<=Math.min(currentGroup+9,100);n++){
+    const b=document.createElement("button");
+    b.className="numberBtn";
+    b.textContent=urduDigits(n);
+    b.onclick=()=>{ currentNumber=n; qs("bigNum").textContent=urduDigits(n); sayNumber(n); addStar(); };
+    box.appendChild(b);
+  }
+  qs("bigNum").textContent=urduDigits(currentNumber);
+}
+function sayNumber(n){
+  const text=urduNumbers[n] || String(n);
+  qs("countMsg").textContent="🔊 "+text;
+  speak(text);
+}
+
+/* پہاڑے */
+function openTables(){
+  hideScreens();
+  qs("tables").classList.add("active");
+  buildTableButtons();
+  selectTable(2);
+}
+function buildTableButtons(){
+  const box=qs("tableBtns");
+  box.innerHTML="";
+  for(let n=2;n<=10;n++){
+    const b=document.createElement("button");
+    b.className="pill";
+    b.textContent=urduDigits(n);
+    b.onclick=()=>selectTable(n);
+    box.appendChild(b);
+  }
+}
+function selectTable(n){
+  currentTable=n;
+  document.querySelectorAll("#tableBtns .pill").forEach((b,j)=>b.classList.toggle("active",j===n-2));
+  const box=qs("tableList");
+  box.innerHTML="";
+  for(let i=1;i<=10;i++){
+    const answer=n*i;
+    const b=document.createElement("button");
+    b.className="tableLine";
+    b.textContent=urduDigits(n)+" × "+urduDigits(i)+" = "+urduDigits(answer);
+    b.onclick=()=>{ speak((urduNumbers[n]||n)+" ضرب "+(urduNumbers[i]||i)+" برابر "+(urduNumbers[answer]||answer)); addStar(); };
+    box.appendChild(b);
+  }
+}
+
+window.addEventListener("resize",()=>{
+  if(qs("letters").classList.contains("active")) resizeCanvas();
+});
+</script>
+</body>
+</html>
